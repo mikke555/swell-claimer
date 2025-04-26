@@ -34,7 +34,12 @@ class Merkl(Wallet):
         proofs = rewards_data.root[0].rewards[0].proofs
         distributor = self.w3.to_checksum_address(rewards_data.root[0].rewards[0].token.address)
         amount = rewards_data.root[0].rewards[0].amount
+        claimed_amount = rewards_data.root[0].rewards[0].claimed
         decimals = rewards_data.root[0].rewards[0].token.decimals
+
+        if claimed_amount != "0":
+            logger.warning(f"{self.label} Already claimed {int(claimed_amount) / 10**decimals} Swell")
+            return
 
         logger.debug(f"{self.label} Eligible for {int(amount) / 10**decimals} Swell")
 
