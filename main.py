@@ -5,7 +5,7 @@ import settings
 from data.const import style
 from modules.controller import Controller
 from modules.logger import logger
-from modules.utils import get_accounts, random_sleep, sleep
+from modules.utils import get_accounts, sleep
 
 
 def get_action() -> str:
@@ -34,7 +34,7 @@ def main():
         controller.execute()
 
         if index < len(accounts):
-            random_sleep(*settings.SLEEP_BETWEEN_WALLETS)
+            sleep(*settings.SLEEP_BETWEEN_WALLETS)
 
     logger.success("All done! 🎉")
 
@@ -44,5 +44,5 @@ if __name__ == "__main__":
         main()
     except KeyboardInterrupt:
         print("Cancelled by user")
-    # except Exception as e:
-    #     logger.error(f"An error occurred: {e}")
+    except Exception as e:
+        logger.error(f"An error occurred: {e}")
